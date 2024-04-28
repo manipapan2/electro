@@ -37,6 +37,7 @@ closeMobileNav.addEventListener("click", () => {
     bodyTag.style.position='relative'
 })
 
+
 themeButton.addEventListener('click', () => {
     if(theme) {
         introductionContainer.style.background = "radial-gradient(circle at 10% 20%, rgba(12, 12, 12, 0.8) 0.1%, rgb(44, 0, 58) 99.8%), url(./images/bg.jpg)";

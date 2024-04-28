@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+    $cookie_name = "test";
+    $cookie_value = "electro";
+    if (!isset($_COOKIE[$cookie_name])) {
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+        }
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -96,6 +103,9 @@
     </div>
 
     <Footer>© Copyright 2021 Electro Team - All Rights Reserved</Footer>
+
+
+
 
     <script src="./script.js"></script>
 </body>
