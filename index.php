@@ -1,11 +1,34 @@
 <!DOCTYPE html>
+
 <?php
-    $cookie_name = "test";
-    $cookie_value = "electro";
-    if (!isset($_COOKIE[$cookie_name])) {
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-        }
+$cookie_name = "Name";
+$cookie_value = "electro";
+if (!isset($_COOKIE[$cookie_name])) {
+    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+}
 ?>
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "electro";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$sqlSelect = "SELECT viwedNumber FROM viwedtable WHERE id=1";
+$result = $conn->query($sqlSelect);
+$row = $result->fetch_assoc();
+$last_result = $row['viwedNumber'];
+
+$sql = "UPDATE viwedtable SET viwedNumber=" . (++$last_result) . " WHERE id=1";
+$conn->query($sql);
+
+$conn->close();
+?>
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,6 +38,32 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    
+
+<div class="showViwedNumber" id="showViwedNumber">این وبسایت تا به الان 
+
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "electro";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$sqlSelect = "SELECT viwedNumber FROM viwedtable WHERE id=1";
+$result = $conn->query($sqlSelect);
+$row = $result->fetch_assoc();
+$last_result = $row['viwedNumber'];
+
+echo($last_result)
+
+?>    
+
+بار دیده شده است
+
+<button id="closeshowViwedNumber">ok</button></div>
+
 
     <div class="mobile-nav-container" id="mobileNavContainer">
         <div class="close-mobile-nav" id="closeMobileNav"></div>
@@ -57,6 +106,43 @@
             </div>
         </div>
     </div>
+
+
+    <h1 class="comments-h1">نظرات</h1>
+
+    <div class="comments-container">
+        <?php
+        // Fetch comments from the database
+        $sqlSelectComments = "SELECT Name, Comment FROM comments";
+        $resultComments = $conn->query($sqlSelectComments);
+
+        // Check if there are any comments
+        if ($resultComments->num_rows > 0) {
+            // Output each comment dynamically
+            while ($rowComment = $resultComments->fetch_assoc()) {
+                ?>
+                <div class="comment-div">
+                    <div class="comment-name"><?php echo $rowComment['Name']; ?></div>
+                    <div class="comment-text"><?php echo $rowComment['Comment']; ?></div>
+                </div>
+                <?php
+            }
+        } else {
+            echo "No comments yet.";
+        }
+        ?>
+    </div>
+
+    <div class="comment-add-container">
+        <form action="add.php" method="post">
+            <h1 class="addComment-h1">نظر خود رااضافه کنید</h1>
+            <input class="addComment-first-input" type="text" placeholder="Enter Your Name" name="name">
+            <input class="addComment-second-input" type="text" placeholder="Enter Your Comment" name="comment">
+            <button class="addComment-Button">Add Comment</button>
+        </form>
+    </div>
+
+    
 
     <div class="card-container">
         <div class="card card1">

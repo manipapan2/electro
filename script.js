@@ -49,3 +49,18 @@ themeButton.addEventListener('click', () => {
 
     console.log("t")
 })
+
+
+const showViwedNumber = document.getElementById('showViwedNumber')
+
+setTimeout(() => {
+    showViwedNumber.style.opacity='1'
+    showViwedNumber.style.pointerEvents='painted'
+}, 1000);
+
+const closeshowViwedNumber = document.getElementById('closeshowViwedNumber')
+
+closeshowViwedNumber.addEventListener('click', () => {
+    showViwedNumber.style.pointerEvents='none'
+    showViwedNumber.style.opacity='0'
+})
